@@ -33,7 +33,6 @@ export const authOptions = {
       return token;
     },
     async session({ session, token, user, profile }) {
-      console.log("From server", user);
       session.user.id = token.id;
       session.accessToken = token.accessToken;
       return session;
