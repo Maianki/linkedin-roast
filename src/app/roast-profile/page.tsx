@@ -8,7 +8,7 @@ function RoastProfile() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  console.log(session);
+  console.log(session.accessToken);
 
   if (status !== "authenticated") {
     return router.push("/");
