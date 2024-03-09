@@ -225,3 +225,8 @@ a {
 .next-steps-section {
   margin-top: var(--g-spacing-2x-large);
 }
+
+
+.cursor-pointer{
+  cursor: pointer;
+}
