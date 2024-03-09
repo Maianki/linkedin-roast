@@ -1,11 +1,24 @@
 "use client";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import { getRoast } from "../utils/getRoast";
+import { getAudioRoast, getRoast } from "../utils/getRoast";
+import { useState } from "react";
 export default function Dashboard() {
+  const [audioSrc, setAudioSrc] = useState("");
   const { user } = useKindeBrowserClient();
 
-  const handleRoast = () => {
-    getRoast(user?.picture as string, `${user?.given_name}`);
+  const handleRoast = async () => {
+    try {
+      const audioBuffer = await getRoast(
+        user?.picture as string,
+        `${user?.given_name}`
+      );
+      const audioBlob = new Blob([audioBuffer as string], {
+        type: "audio/mpeg",
+      });
+      setAudioSrc(URL.createObjectURL(audioBlob));
+    } catch (err) {
+      console.log("Something went wrong!");
+    }
   };
 
   console.log("accessToken", user);
@@ -23,10 +36,11 @@ export default function Dashboard() {
             Roast my profile
           </button>
         </p>
+        <div style={{ marginTop: "14px" }}>
+          {audioSrc && <audio controls src={audioSrc} />}
+        </div>
       </div>
-      <section className="next-steps-section">
-        {/* <h2 className="text-heading-1">Next steps for you</h2> */}
-      </section>
+      <section className="next-steps-section"></section>
     </div>
   );
 }

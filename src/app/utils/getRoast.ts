@@ -4,7 +4,7 @@ const openai = new OpenAI({
   dangerouslyAllowBrowser: true,
 });
 
-export async function getRoast(image: string, name: string): Promise<string> {
+export async function getRoast(image: string, name: string) {
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -16,8 +16,7 @@ export async function getRoast(image: string, name: string): Promise<string> {
     const roast = await res.json();
 
     if (roast.status == 200) {
-      getAudioRoast(roast.message.join(" "));
-      return roast.message.join(" ");
+      return getAudioRoast(roast.message.join(""));
     } else {
       return "error";
     }
@@ -27,5 +26,14 @@ export async function getRoast(image: string, name: string): Promise<string> {
 }
 
 export async function getAudioRoast(roast: string) {
-  console.log("hello");
+  console.log(roast);
+  const mp3 = await openai.audio.speech.create({
+    model: "tts-1",
+    voice: "onyx",
+    input: roast,
+  });
+  console.log(await mp3);
+  const buffer = Buffer.from(await mp3.arrayBuffer());
+  console.log(buffer);
+  return buffer;
 }
