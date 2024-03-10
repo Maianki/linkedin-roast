@@ -8,13 +8,15 @@ export default function Dashboard() {
   const [audioSrc, setAudioSrc] = useState<string>("");
   const { user } = useKindeBrowserClient();
   const [isRoast, setIsRoast] = useState<boolean>(false);
+  const [title, seTitle] = useState("");
 
   const handleRoast = async () => {
     setIsRoast(true);
     try {
       const audioBuffer = await getRoast(
         user?.picture as string,
-        `${user?.given_name}`
+        `${user?.given_name}`,
+        title
       );
       const audioBlob = new Blob([audioBuffer as unknown as string], {
         type: "audio/mpeg",
@@ -31,10 +33,25 @@ export default function Dashboard() {
   return (
     <div className="container">
       <div className="card start-hero">
-        <p className="text-body-2 start-hero-intro">Welcome!</p>
         <p className="text-display-2">
-          Roast your linkedIn profile
+          Roast your LinkedIn Profile
           <br />
+          <p className="text-body-2 start-hero-intro">
+            Welcome {user?.given_name} {user?.family_name}
+          </p>
+          <div className="title-container">
+            <label htmlFor="title" className="title-label">
+              Title(Optional but it makes more juicy)
+            </label>
+            <input
+              className="title-input"
+              type="text"
+              id="title"
+              value={title}
+              placeholder="Tech Bro | 100x Engineer | 9 Figures exit VC AC/DC"
+              onChange={(e) => seTitle(e.target.value)}
+            />
+          </div>
           <button
             disabled={isRoast}
             className="btn btn-light btn-med cursor-pointer"
