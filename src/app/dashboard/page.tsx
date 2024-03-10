@@ -1,6 +1,7 @@
 "use client";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import { getAudioRoast, getRoast } from "../utils/getRoast";
+import { getRoast } from "../utils/getRoast";
+import toast from "react-hot-toast";
 import { useState } from "react";
 import { ColorRing } from "react-loader-spinner";
 export default function Dashboard() {
@@ -22,6 +23,7 @@ export default function Dashboard() {
       setIsRoast(false);
     } catch (err) {
       setIsRoast(false);
+      toast("Something went wrong! Try again");
       console.log("Something went wrong!");
     }
   };
@@ -29,11 +31,12 @@ export default function Dashboard() {
   return (
     <div className="container">
       <div className="card start-hero">
-        <p className="text-body-2 start-hero-intro">Woohoo!</p>
+        <p className="text-body-2 start-hero-intro">Welcome!</p>
         <p className="text-display-2">
           Roast your linkedIn profile
           <br />
           <button
+            disabled={isRoast}
             className="btn btn-light btn-med cursor-pointer"
             onClick={handleRoast}
             style={{
@@ -41,11 +44,12 @@ export default function Dashboard() {
               alignItems: "center",
               justifyContent: "center",
               margin: "0 auto",
+              marginTop: "6px",
             }}
           >
             {isRoast ? (
               <>
-                <span>Sit tight while your roast is being prepared!</span>
+                <span>Keep your socks on while we spice up your roast!</span>
                 <ColorRing
                   visible={true}
                   height="30"
@@ -67,9 +71,21 @@ export default function Dashboard() {
             )}
           </button>
         </p>
-        <div style={{ marginTop: "18px" }}>
+        <div
+          style={{
+            marginTop: "18px",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
           {audioSrc && (
-            <audio style={{ width: "220px" }} controls src={audioSrc} />
+            <audio
+              style={{
+                width: "220px",
+              }}
+              controls
+              src={audioSrc}
+            />
           )}
         </div>
       </div>

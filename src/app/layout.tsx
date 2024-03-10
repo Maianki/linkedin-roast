@@ -6,6 +6,7 @@ import {
 } from "@kinde-oss/kinde-auth-nextjs/components";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import Link from "next/link";
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title: "LinkedIn Roast",
@@ -61,6 +62,7 @@ export default async function RootLayout({
           </nav>
         </header>
         <main>{children}</main>
+        <Toaster />
       </body>
     </html>
   );

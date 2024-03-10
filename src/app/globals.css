@@ -230,3 +230,12 @@ a {
 .cursor-pointer{
   cursor: pointer;
 }
+
+
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 var(--g-spacing-2x-large);
+    margin: 16px;
+  }
+}
