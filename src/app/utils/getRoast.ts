@@ -4,11 +4,11 @@ const openai = new OpenAI({
   dangerouslyAllowBrowser: true,
 });
 
-export async function getRoast(image: string, name: string) {
+export async function getRoast(image: string, name: string, title: string) {
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ image: image, name: name }),
+    body: JSON.stringify({ image: image, name: name, title: title }),
   };
 
   try {
