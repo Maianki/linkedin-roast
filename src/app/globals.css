@@ -238,4 +238,18 @@ a {
     padding: 0 var(--g-spacing-large);
     margin: 16px;
   }
+
+  .text-display-1{
+    font-size: 2.8rem;
+    margin-bottom: 6px;
+  }
+
+  .text-display-2{
+    font-size: var(--g-font-size-x-large);
+  }
+
+  .hero-tagline{
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
 }
