@@ -21,6 +21,7 @@
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-loader-spinner": "^6.1.6",
+    "react-share": "^5.1.0",
     "replicate": "^0.27.1",
     "typescript": "5.3.3"
   }
