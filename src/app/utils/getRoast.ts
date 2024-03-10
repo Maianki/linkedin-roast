@@ -26,7 +26,6 @@ export async function getRoast(image: string, name: string) {
 }
 
 export async function getAudioRoast(roast: string) {
-  console.log(roast);
   const mp3 = await openai.audio.speech.create({
     model: "tts-1",
     voice: "onyx",

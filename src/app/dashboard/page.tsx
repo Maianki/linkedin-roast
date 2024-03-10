@@ -2,11 +2,14 @@
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { getAudioRoast, getRoast } from "../utils/getRoast";
 import { useState } from "react";
+import { ColorRing } from "react-loader-spinner";
 export default function Dashboard() {
-  const [audioSrc, setAudioSrc] = useState("");
+  const [audioSrc, setAudioSrc] = useState<string>("");
   const { user } = useKindeBrowserClient();
+  const [isRoast, setIsRoast] = useState<boolean>(false);
 
   const handleRoast = async () => {
+    setIsRoast(true);
     try {
       const audioBuffer = await getRoast(
         user?.picture as string,
@@ -16,7 +19,9 @@ export default function Dashboard() {
         type: "audio/mpeg",
       });
       setAudioSrc(URL.createObjectURL(audioBlob));
+      setIsRoast(false);
     } catch (err) {
+      setIsRoast(false);
       console.log("Something went wrong!");
     }
   };
@@ -31,8 +36,35 @@ export default function Dashboard() {
           <button
             className="btn btn-light btn-med cursor-pointer"
             onClick={handleRoast}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: "0 auto",
+            }}
           >
-            Roast my profile
+            {isRoast ? (
+              <>
+                <span>Sit tight while your roast is being prepared!</span>
+                <ColorRing
+                  visible={true}
+                  height="30"
+                  width="30"
+                  ariaLabel="color-ring-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="color-ring-wrapper"
+                  colors={[
+                    "#e15b64",
+                    "#f47e60",
+                    "#f8b26a",
+                    "#abbd81",
+                    "#849b87",
+                  ]}
+                />
+              </>
+            ) : (
+              <span>Roast my profile</span>
+            )}
           </button>
         </p>
         <div style={{ marginTop: "14px" }}>
