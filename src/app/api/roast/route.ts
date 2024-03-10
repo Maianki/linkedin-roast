@@ -11,11 +11,20 @@ export async function POST(request: Request) {
 
     console.log("user data is :", userData);
 
+    let prompt = "";
+
     const image = userData?.image;
     const name = userData?.name;
+    const title = userData?.title ?? "";
 
     if (image == undefined || name == undefined) {
       return NextResponse.json({ message: "Bad Request" }, { status: 400 });
+    }
+
+    if (title.length > 0) {
+      prompt = `You are a comedian. This is a linkedIn profile picture (A social network for connecting with your work colleagues) of a some user make a roast of this user profile be super sarcastic and funny. Roast him his name is ${name} and title is ${title}. If the image does not appear to depict a person, please respond with a sarcastic remark regarding the inappropriate choice of image." `;
+    } else {
+      prompt = `You are a comedian. This is a linkedIn profile picture (A social network for connecting with your work colleagues) of a some user make a roast of this user profile be super sarcastic and funny. Roast him his name is ${name}. If the image does not appear to depict a person, please respond with a sarcastic remark regarding the inappropriate choice of image." `;
     }
 
     const output = await replicate.run(
@@ -24,7 +33,7 @@ export async function POST(request: Request) {
         input: {
           image: image,
           top_p: 1,
-          prompt: `You are a comedian. This is a linkedIn profile picture (A social network for connecting with your work colleagues) of a some user make a roast of this user profile be super sarcastic and funny. Roast him his name is ${name}. If the image does not appear to depict a person, please respond with a sarcastic remark regarding the inappropriate choice of image." `,
+          prompt: prompt,
           max_tokens: 1024,
           temperature: 0.2,
         },
