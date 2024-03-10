@@ -67,8 +67,10 @@ export default function Dashboard() {
             )}
           </button>
         </p>
-        <div style={{ marginTop: "14px" }}>
-          {audioSrc && <audio controls src={audioSrc} />}
+        <div style={{ marginTop: "18px" }}>
+          {audioSrc && (
+            <audio style={{ width: "220px" }} controls src={audioSrc} />
+          )}
         </div>
       </div>
       <section className="next-steps-section"></section>
