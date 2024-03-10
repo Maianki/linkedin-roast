@@ -12,7 +12,7 @@ export default function Dashboard() {
         user?.picture as string,
         `${user?.given_name}`
       );
-      const audioBlob = new Blob([audioBuffer as string], {
+      const audioBlob = new Blob([audioBuffer as unknown as string], {
         type: "audio/mpeg",
       });
       setAudioSrc(URL.createObjectURL(audioBlob));
@@ -21,7 +21,6 @@ export default function Dashboard() {
     }
   };
 
-  console.log("accessToken", user);
   return (
     <div className="container">
       <div className="card start-hero">
