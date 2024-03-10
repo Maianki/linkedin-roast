@@ -18,10 +18,10 @@ export async function getRoast(image: string, name: string) {
     if (roast.status == 200) {
       return getAudioRoast(roast.message.join(""));
     } else {
-      return "error";
+      throw new Error("Trouble creating roast!");
     }
   } catch (error) {
-    throw "error";
+    throw new Error("Trouble creating roast!");
   }
 }
 
@@ -32,8 +32,8 @@ export async function getAudioRoast(roast: string) {
     voice: "onyx",
     input: roast,
   });
-  console.log(await mp3);
+
   const buffer = Buffer.from(await mp3.arrayBuffer());
-  console.log(buffer);
+
   return buffer;
 }
