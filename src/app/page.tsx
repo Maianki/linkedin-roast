@@ -2,9 +2,15 @@ import Link from "next/link";
 import { LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Audio } from "react-loader-spinner";
+import { createClient } from "./utils/supabase/server";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
-  const { isAuthenticated } = getKindeServerSession();
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.getUser();
+  // if (error || !data?.user) {
+  //   redirect("/");
+  // }
   return (
     <div className="container">
       <div className="card hero">
@@ -12,7 +18,7 @@ export default async function Home() {
           Try Linkedin <br /> Roast
         </p>
 
-        {!(await isAuthenticated()) ? (
+        {/* {!(await isAuthenticated()) ? (
           <>
             <p className="text-body-1 hero-tagline">
               Sign In with your LinkedIn
@@ -26,7 +32,7 @@ export default async function Home() {
           >
             Roast Me!
           </Link>
-        )}
+        )} */}
       </div>
     </div>
   );

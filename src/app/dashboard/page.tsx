@@ -1,43 +1,55 @@
 "use client";
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { getRoast } from "../utils/getRoast";
 import toast from "react-hot-toast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ColorRing } from "react-loader-spinner";
+import { createClient } from "../utils/supabase/client";
+
 export default function Dashboard() {
   const [audioSrc, setAudioSrc] = useState<string>("");
-  const { user } = useKindeBrowserClient();
   const [isRoast, setIsRoast] = useState<boolean>(false);
   const [title, seTitle] = useState("");
+  const [user, setUser] = useState();
 
-  const handleRoast = async () => {
-    setIsRoast(true);
-    try {
-      const audioBuffer = await getRoast(
-        user?.picture as string,
-        `${user?.given_name}`,
-        title
-      );
-      const audioBlob = new Blob([audioBuffer as unknown as string], {
-        type: "audio/mpeg",
-      });
-      setAudioSrc(URL.createObjectURL(audioBlob));
-      setIsRoast(false);
-    } catch (err) {
-      setIsRoast(false);
-      toast("Something went wrong! Try again");
-      console.log("Something went wrong!");
-    }
-  };
+  const supabase = createClient();
+
+  useEffect(() => {
+    (async function () {
+      const data = await supabase.auth.getUser();
+      console.log(data);
+
+      setUser(data);
+    })();
+  }, []);
+
+  // const handleRoast = async () => {
+  //   setIsRoast(true);
+  //   try {
+  //     const audioBuffer = await getRoast(
+  //       user?.picture as string,
+  //       `${user?.given_name}`,
+  //       title
+  //     );
+  //     const audioBlob = new Blob([audioBuffer as unknown as string], {
+  //       type: "audio/mpeg",
+  //     });
+  //     setAudioSrc(URL.createObjectURL(audioBlob));
+  //     setIsRoast(false);
+  //   } catch (err) {
+  //     setIsRoast(false);
+  //     toast("Something went wrong! Try again");
+  //     console.log("Something went wrong!");
+  //   }
+  // };
 
   return (
     <div className="container">
       <div className="card start-hero">
-        <p className="text-display-2">
+        <div className="text-display-2">
           Roast your LinkedIn Profile
           <br />
           <p className="text-body-2 start-hero-intro">
-            Welcome {user?.given_name} {user?.family_name}
+            {/* Welcome {user?.given_name} {user?.family_name} */}
           </p>
           <div className="title-container">
             <label htmlFor="title" className="title-label">
@@ -55,7 +67,7 @@ export default function Dashboard() {
           <button
             disabled={isRoast}
             className="btn btn-light btn-med cursor-pointer"
-            onClick={handleRoast}
+            onClick={() => {}}
             style={{
               display: "flex",
               alignItems: "center",
@@ -87,7 +99,7 @@ export default function Dashboard() {
               <span>Roast my profile</span>
             )}
           </button>
-        </p>
+        </div>
         <div
           style={{
             marginTop: "18px",
