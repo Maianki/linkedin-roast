@@ -1,9 +1,17 @@
 "use client";
-
+ 
+import { useRouter } from "next/navigation";
 import { signInWithLinkedIn, signOut } from "@/app/utils/supabase/linkedinAuth";
 
 export default function Navbar({ data }: { data: any }) {
   const user = data?.user?.user_metadata;
+  const router = useRouter();
+
+  const handleSignOut = () => {
+    signOut();
+    router.push("/");
+  };
+
   return (
     <nav className="nav container">
       <h1 className="text-display-3">LinkedIn Roast</h1>
@@ -39,7 +47,7 @@ export default function Navbar({ data }: { data: any }) {
                 {user?.given_name} {user?.family_name}
               </p>
 
-              <a role="button" className="text-subtle cursor-pointer">
+              <a role="button" className="text-subtle" onClick={handleSignOut}>
                 Log out
               </a>
             </div>
