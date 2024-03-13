@@ -32,7 +32,7 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <header>
-          <Navbar data={data} />
+          <Navbar />
         </header>
         <main>{children}</main>
         <Toaster />

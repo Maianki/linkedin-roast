@@ -3,14 +3,32 @@
 import { useRouter } from "next/navigation";
 import { signInWithLinkedIn } from "@/app/utils/supabase/linkedinAuth";
 import { signOut } from "@/app/utils/supabase/linkedinAuthSignOut";
+import { createClient } from "../app/utils/supabase/client";
+import { UserMetadata } from "@supabase/supabase-js";
+import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 
-export default function Navbar({ data }: { data: any }) {
-  const user = data?.user?.user_metadata;
+export default function Navbar() {
+  // const user = data?.user?.user_metadata;
   const router = useRouter();
+  const supabase = createClient();
+  const [user, setUser] = useState<UserMetadata | undefined>(undefined);
+
+  useEffect(() => {
+    try {
+      (async function () {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        setUser(user?.user_metadata);
+      })();
+    } catch (err) {
+      toast.error("Something went wrong! Try refreshing the page");
+    }
+  }, [user]);
 
   const handleSignOut = async () => {
     await signOut();
-    console.log("moved to homepage!");
     router.push("/");
   };
 
@@ -18,7 +36,7 @@ export default function Navbar({ data }: { data: any }) {
     <nav className="nav container">
       <h1 className="text-display-3">LinkedIn Roast</h1>
       <div>
-        {!data?.user ? (
+        {!user ? (
           <>
             <a
               role="button"
