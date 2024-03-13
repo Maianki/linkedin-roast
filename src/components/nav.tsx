@@ -1,14 +1,16 @@
 "use client";
  
 import { useRouter } from "next/navigation";
-import { signInWithLinkedIn, signOut } from "@/app/utils/supabase/linkedinAuth";
+import { signInWithLinkedIn } from "@/app/utils/supabase/linkedinAuth";
+import { signOut } from "@/app/utils/supabase/linkedinAuthSignOut";
 
 export default function Navbar({ data }: { data: any }) {
   const user = data?.user?.user_metadata;
   const router = useRouter();
 
-  const handleSignOut = () => {
-    signOut();
+  const handleSignOut = async () => {
+    await signOut();
+    console.log("moved to homepage!");
     router.push("/");
   };
 
@@ -47,7 +49,11 @@ export default function Navbar({ data }: { data: any }) {
                 {user?.given_name} {user?.family_name}
               </p>
 
-              <a role="button" className="text-subtle" onClick={handleSignOut}>
+              <a
+                role="button"
+                className="text-subtle cursor-pointer"
+                onClick={handleSignOut}
+              >
                 Log out
               </a>
             </div>

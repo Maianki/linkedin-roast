@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { ColorRing } from "react-loader-spinner";
 import { createClient } from "../utils/supabase/client";
 import { User, UserMetadata } from "@supabase/supabase-js";
+import { useRouter } from "next/navigation";
 
 // Adjust the type annotation for UserResponse
 type UserResponse = {
@@ -19,6 +20,7 @@ export default function Dashboard() {
   const [user, setUser] = useState<UserMetadata | undefined>(undefined);
 
   const supabase = createClient();
+  const router = useRouter();
 
   useEffect(() => {
     try {
