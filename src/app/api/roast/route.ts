@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     }
 
     if (title.length > 0) {
-      prompt = `You are a comedian. This is a linkedIn profile picture (A social network for connecting with your work colleagues) of a some user make a roast of this user profile be super sarcastic and funny. Roast him his name is ${name} and title is ${title}. If the image does not appear to depict a person, please respond with a sarcastic remark regarding the inappropriate choice of image." `;
+      prompt = `You are a comedian. This is a linkedIn profile picture (A social network for connecting with your work colleagues) of a some user make a roast of this user profile and bio, be super sarcastic and funny. Roast him his name is ${name} and and his bio on linkedIn is ${title}. If the image does not appear to depict a person, please respond with a sarcastic remark regarding the inappropriate choice of image." `;
     } else {
       prompt = `You are a comedian. This is a linkedIn profile picture (A social network for connecting with your work colleagues) of a some user make a roast of this user profile be super sarcastic and funny. Roast him his name is ${name}. If the image does not appear to depict a person, please respond with a sarcastic remark regarding the inappropriate choice of image." `;
     }

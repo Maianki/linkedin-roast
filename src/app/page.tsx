@@ -1,9 +1,8 @@
 import Link from "next/link";
-import { LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Audio } from "react-loader-spinner";
 import { createClient } from "./utils/supabase/server";
 import { redirect } from "next/navigation";
+import SignInButton from "@/components/SignInButton";
 
 export default async function Home() {
   const supabase = createClient();
@@ -18,12 +17,12 @@ export default async function Home() {
           Try Linkedin <br /> Roast
         </p>
 
-        {/* {!(await isAuthenticated()) ? (
+        {!data?.user ? (
           <>
             <p className="text-body-1 hero-tagline">
               Sign In with your LinkedIn
             </p>
-            <LoginLink className="btn btn-light btn-big">Sign In</LoginLink>
+            <SignInButton />
           </>
         ) : (
           <Link
@@ -32,7 +31,7 @@ export default async function Home() {
           >
             Roast Me!
           </Link>
-        )} */}
+        )}
       </div>
     </div>
   );
