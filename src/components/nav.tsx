@@ -25,7 +25,7 @@ export default function Navbar() {
     } catch (err) {
       toast.error("Something went wrong! Try refreshing the page");
     }
-  }, [user]);
+  }, []);
 
   const handleSignOut = async () => {
     await signOut();
