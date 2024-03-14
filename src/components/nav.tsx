@@ -14,6 +14,7 @@ export default function Navbar() {
   const supabase = createClient();
   const [user, setUser] = useState<UserMetadata | undefined>(undefined);
 
+
   useEffect(() => {
     try {
       (async function () {
@@ -29,6 +30,7 @@ export default function Navbar() {
 
   const handleSignOut = async () => {
     await signOut();
+    setUser(undefined);
     router.push("/");
   };
 
