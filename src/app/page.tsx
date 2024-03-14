@@ -3,6 +3,7 @@ import { Audio } from "react-loader-spinner";
 import { createClient } from "./utils/supabase/server";
 import { redirect } from "next/navigation";
 import SignInButton from "@/components/SignInButton";
+import BuyMeCoffee from "@/components/BuyMeCoffee";
 
 export default async function Home() {
   const supabase = createClient();

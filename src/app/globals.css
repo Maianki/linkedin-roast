@@ -170,7 +170,7 @@ header {
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 40rem;
+  height: 38rem;
   justify-content: center;
   text-align: center;
 }
@@ -307,4 +307,32 @@ header {
   .start-hero {
     padding: 2rem 0.5rem;
   }
+}
+
+
+.tooltip {
+  display: flex;
+  justify-content: center;
+  justify-content: center;
+  background: #444;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 12px;
+  padding: 8px;
+  width: 120px;
+  position: absolute;
+  right: calc(100% + 8px); /* Adjust the distance from the link */
+  top: 40%; /* Adjust the vertical position */
+  transform: translateY(-50%);
+}
+
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 98%; /* This places the bubble on the right side of the tooltip */
+  transform: translateY(-50%) rotate(180deg);
+  border-style: solid;
+  border-width: 10px 10px 10px 0;
+  border-color: transparent #444 transparent transparent;
 }

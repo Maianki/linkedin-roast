@@ -1,5 +1,5 @@
 {
-  "name": "kinde-nextjs-app-router-starter-kit",
+  "name": "LinkedIn Roast",
   "version": "0.1.0",
   "scripts": {
     "dev": "next dev",
@@ -8,7 +8,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@kinde-oss/kinde-auth-nextjs": "^2.1.3",
     "@supabase/ssr": "^0.1.0",
     "@supabase/supabase-js": "^2.39.7",
     "@types/node": "20.11.5",

@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Toaster } from "react-hot-toast";
 import Navbar from "../components/nav";
+import BuyMeCoffee from "@/components/BuyMeCoffee";
 export const metadata = {
   title: "LinkedIn Roast",
   description: "Get your linkedin profile roasted!",
@@ -35,6 +36,7 @@ export default async function RootLayout({
           <Navbar />
         </header>
         <main>{children}</main>
+        <BuyMeCoffee />
         <Toaster />
       </body>
     </html>
