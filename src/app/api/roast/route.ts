@@ -29,7 +29,10 @@ export async function POST(request: Request) {
       });
     }
 
+    console.log(prompt);
     prompt = generatePrompt(name, image, title);
+
+    console.log(prompt);
 
     const output = await replicate.run(
       "yorickvp/llava-13b:a0fdc44e4f2e1f20f2bb4e27846899953ac8e66c5886c5878fa1d6b73ce009e5",

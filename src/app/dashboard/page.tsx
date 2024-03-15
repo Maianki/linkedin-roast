@@ -38,6 +38,15 @@ export default function Dashboard() {
   const handleRoast = async () => {
     setIsRoast(true);
     try {
+
+      if (!user?.picture && title.length > 0) {
+        toast(
+          "Currently, we only support roasts for users who have a profile image."
+        );
+        setIsRoast(false);
+        return;
+      }
+
       const audioBuffer = await getRoast(
         user?.picture as string,
         `${user?.given_name}`,
