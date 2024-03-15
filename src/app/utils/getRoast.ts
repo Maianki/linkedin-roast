@@ -13,7 +13,7 @@ export async function getRoast(image: string, name: string, title: string) {
 
   try {
     const res = await fetch(
-      "http://ec2-13-231-181-241.ap-northeast-1.compute.amazonaws.com/roast",
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/roast`,
       requestOptions
     );
     const roast = await res.json();
