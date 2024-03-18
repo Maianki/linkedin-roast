@@ -12,7 +12,10 @@ export async function getRoast(image: string, name: string, title: string) {
   };
 
   try {
-    const res = await fetch("/api/roast", requestOptions);
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/roast`,
+      requestOptions
+    );
     const roast = await res.json();
 
     if (roast.status == 200) {
