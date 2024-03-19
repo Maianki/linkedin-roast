@@ -280,6 +280,10 @@ header {
     margin: 16px 0;
   }
 
+  .nav.container{
+    margin: 0;
+  }
+
   .title-input {
     width: 100%;
   }
